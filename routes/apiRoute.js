@@ -23,7 +23,7 @@ router.get('/user/verify', userAuthController.user_auth)
 //transfer to another user on the database
 router.put('/userTransfer/:id', userTransferController.user_transfer)
 
-//user to fond acc
+//user to fund acc
 router.put('/user/fundAcc/:id', userFundController.fund_Acc)
 
 
