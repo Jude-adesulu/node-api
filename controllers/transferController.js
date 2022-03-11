@@ -34,14 +34,13 @@ const user_transfer = (req, res)=>{
                    
                     
                     knex('users')
-                    .from('users') 
                     .where({id:receiverId})
                     .first()
                     .then(receiver=>{
                         if(receiver){
                             var newBal = receiver.balance += parseFloat(amount);
                             knex('users').where('id', receiverId).update({balance:newBal})
-                            .then(()=>{res.send(`${amount} receieved from ${userId}`)})
+                            .then(()=>{res.send(` Money receieved `)})
                             
                         }
                     })
