@@ -65,7 +65,7 @@ describe("TEST API", ()=>{
 
     //test the login in and generate token router 
 
-    describe("GET | Auth API", ()=>{
+    describe("GET | Authenticate Users", ()=>{
         //it generate a token to the user
         it("It should authenticate a registered user by retrieving the token", (done)=>{
             const user = {
@@ -79,6 +79,27 @@ describe("TEST API", ()=>{
                 response.should.have.status(200)
                 response.body.should.be.a('object')
                 should.exist(response.body.token)
+
+
+               //Authorize user after verifying the token
+               const token = response.body.token
+
+               chai.request(server)
+               .get("/api/user/verify")
+               .set({"Authorization":`Bearer ${token}`})
+               .end((err,response)=>{
+                       response.should.have.status(200)
+                       should.exist(response.body.id)
+                       should.exist(response.body.name)
+                       should.exist(response.body.email)
+                       should.exist(response.body.account_number)
+                       should.exist(response.body.balance)
+   
+             
+               
+   
+               
+           })
                         
             done()
             })
@@ -92,16 +113,32 @@ describe("TEST API", ()=>{
                 password: "wrong"
             }
             chai.request(server)
-            .get("/api/login")
-            .send(user)
-            .end((err, response)=>{
-                response.should.have.status(401)
-                should.not.exist(response.body.token)
+                .get("/api/login")
+                .send(user)
+                .end((err, response)=>{
+                    response.should.have.status(401)
+                    should.not.exist(response.body.token)
+
+                const token = response.body.token
+
+             
+            
             done()
             })
             
             
 
+        })
+    })
+
+
+    
+    describe("GET | Verify user token", (done)=>{
+        it("It Should GET user token and Verify", ()=>{
+
+            
+
+            
         })
     })
 
