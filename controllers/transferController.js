@@ -27,7 +27,7 @@ const user_transfer = async (req, res)=>{
                 if(!receiver){
                     res.send("User ID not found")
                 }else{
-                    var newBal = user.balance -= amount;
+                    let newBal = user.balance -= amount;
                     knex('users').where('id', userId).update({balance:newBal})
                     .then(()=>{
                         res.status(200).send(`Transaction was successful \n Your new balance is ${newBal}`)

@@ -55,8 +55,6 @@ describe("TEST API", ()=>{
             })
     })
 
-
-
     //test the login in and generate token router 
 
     describe("GET | Authenticate Users", ()=>{
@@ -115,27 +113,7 @@ describe("TEST API", ()=>{
     })
 
 
-    
-    // describe("PUT | Funding other Wallets", ()=>{
-    //     it("It Should send money to another user on the DB", (done)=>{
-    //         const info ={
-    //             //ID of the receiver on the DB
-    //             id: 8,
-    //             amount: 70
-    //         }
-    //         const userID =7
-    //         chai.request(server)
-    //         //it contains the sender ID as a parameter
-    //         .put("api/userTransfer/" + userID)
-    //         .send(info)
-    //         .end((err, response)=>{
-    //             response.should.have.status(200)
-    //             should.exist(response.body)
-    //         done()
-    //         })
-            
-    //     })
-    // })
+    //user transfer to another account
     describe("PUT | Funding other Wallets", ()=>{
         it("It Should send money to another user on the DB ", (done)=>{
             const userID = 8
@@ -158,6 +136,7 @@ describe("TEST API", ()=>{
 
     })
 
+    //user fund account test case
     describe("PUT | Fund User Account", ()=>{
         it("it should POST new user to the database ", (done)=>{
             const userID = 8
@@ -170,6 +149,29 @@ describe("TEST API", ()=>{
                 .end((err, response)=>{
                      response.should.have.status(200);
                      response.body.should.be.a('object')
+                    
+                done()
+                })
+                 
+            })          
+
+    })
+
+    //user withdrawal test case
+
+    describe("PUT | User Withdrawal", ()=>{
+        it("it should withdral from your account if you have enough on it", (done)=>{
+            const userID = 8
+            const info = {
+                amount: 1220
+            }
+            chai.request(server)
+                .put("/api/user/withdraw/" + userID)
+                .send(info)
+                .end((err, response)=>{
+                     response.should.have.status(200);
+                     response.body.should.be.a('object')
+                     should.exist(response.body)
                     
                 done()
                 })
