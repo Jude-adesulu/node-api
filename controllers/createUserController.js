@@ -19,7 +19,7 @@ const create_user = async (req, res)=>{
 
     const name = req.body.name;
     const email = req.body.email;
-    const balance = req.body.balance;
+    const balance = 0;
     const account_number = account;
     const password = hashPassword;
     
