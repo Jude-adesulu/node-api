@@ -1,7 +1,10 @@
 
-
 const chai = require("chai");
+// const { should } = require("chai");
+const should = chai.should()
+
 const chaiHhttp = require("chai-http");
+const { response } = require("../index");
 const server = require("../index")
 
 
@@ -13,10 +16,11 @@ chai.use(chaiHhttp)
 describe("TEST API", ()=>{
     //test the post user route
     describe("POST /api/createUser",()=>{
-        it("it should POST new user to the database if email does not match", (done)=>{
+        //create a new user
+        it("it should POST new user to the database ", (done)=>{
             const info = {
-                name: "Pete",
-                email: "@mail.com",
+                name: "John Doe",
+                email: "Newmail@mail.com",
                 password: "yuty",
                 balance: 20
             }
@@ -24,14 +28,82 @@ describe("TEST API", ()=>{
                 .post("/api/createUser")
                 .send(info)
                 .end((err, response)=>{
-                     response.should.have.status(200);
+                     response.should.have.status(422);
                      response.body.should.be.a('object')
                     
                 done()
                 })
+                 
+            })   
+            
+            
+        //return a 422 status code cause email already exist on my DB
+        it("it should it show return 422 when the email already exist on the DB ", (done)=>{
+            const info = {
+                name: "Test Name",
+                email: "Test@mail.com",
+                password: "1234",
+                balance: 20
+            }
+            chai.request(server)
+                .post("/api/createUser")
+                .send(info)
+                .end((err, response)=>{
+                     response.should.have.status(422);
+                     response.body.should.be.a('object')
+                    
+                done()
+                })
+
+            })
+
+
+    
+    })
+
+
+
+    //test the login in and generate token router 
+
+    describe("GET | Auth API", ()=>{
+        //it generate a token to the user
+        it("It should authenticate a registered user by retrieving the token", (done)=>{
+            const user = {
+                email: "Test@mail.com",
+                password: "1234"
+            }
+            chai.request(server)
+            .get("/api/login")
+            .send(user)
+            .end((err, response)=>{
+                response.should.have.status(200)
+                response.body.should.be.a('object')
+                should.exist(response.body.token)
+                        
+            done()
+            })
+        })
+
+        //Users with wrong password are unauthorized
+
+        it("Should not login in with the right user but wrong password", (done)=>{
+            const user = {
+                email: "Test@mail.com",
+                password: "wrong"
+            }
+            chai.request(server)
+            .get("/api/login")
+            .send(user)
+            .end((err, response)=>{
+                response.should.have.status(401)
+                should.not.exist(response.body.token)
+            done()
+            })
+            
+            
+
         })
     })
 
 
-    
 })
