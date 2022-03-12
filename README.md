@@ -1,6 +1,10 @@
 # node-api
 ## About
-A simple wallet **API** containing CRUD functionalities and user authentication
+A simple wallet **API** containing CRUD functionalities and user authenticatione
+It registers news user
+Users can send money to other users
+Fund Account
+Withdraw from account
 ## Getting Started
 The following instructions will give guildlines on how to run the API on your local machine fpr testing purposes
 ## Prerequisities
@@ -15,6 +19,6 @@ Run the project
 Run **npm start**
 ## MySQL
 All the data required to be on the database is in MySQL_format file
-## Test Case
+## Test
 Run **npm test** on your terminal
-Mocha and Chai was used to run it
+Mocha and Chai was used to run the test case
