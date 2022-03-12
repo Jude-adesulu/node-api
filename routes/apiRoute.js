@@ -7,6 +7,7 @@ const createUserController = require('../controllers/createUserController')
 const userAuthController = require('../controllers/userAuthController')
 const userTransferController = require('../controllers/transferController')
 const userFundController = require('../controllers/userFundController')
+const userWithdrawController = require('../controllers/userWithdrawController')
 
 dotenv.config()
 
@@ -25,6 +26,9 @@ router.put('/userTransfer/:id', userTransferController.user_transfer)
 
 //user to fund acc
 router.put('/user/fundAcc/:id', userFundController.fund_Acc)
+
+//user to withdraw
+router.put('/user/withdraw/:id', userWithdrawController.withdraw_fund)
 
 
 
