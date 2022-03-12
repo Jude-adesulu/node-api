@@ -50,7 +50,9 @@ const user_transfer = async (req, res)=>{
             })
         }
     })
-   
+    .catch((err)=>{
+        res.status(401).json({message:err})
+    })
     
 }
 

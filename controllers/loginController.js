@@ -51,6 +51,10 @@ const user_login = (req, res)=>{
         }
     })
 
+    .catch((err)=>{
+        res.status(401).json({message:err})
+    })
+
 }
 
 module.exports = {user_login}

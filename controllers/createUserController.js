@@ -23,7 +23,6 @@ const create_user = async (req, res)=>{
     const account_number = account;
     const password = hashPassword;
     
-
     //connect query to database
     knex.select()
     .from("users")
@@ -51,6 +50,9 @@ const create_user = async (req, res)=>{
         }
     res.status(422).send('Email already Exist')
     return;
+})
+.catch((err)=>{
+    res.json({message:err})
 })
 }
 

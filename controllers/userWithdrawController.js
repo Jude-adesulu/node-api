@@ -21,7 +21,9 @@ const withdraw_fund = (req, res)=>{
         }
     })
     
-
+    .catch((err)=>{
+        res.status(401).json({message:err})
+    })
 
 }
 
