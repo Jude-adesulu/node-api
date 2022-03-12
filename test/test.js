@@ -34,8 +34,7 @@ describe("TEST API", ()=>{
                 done()
                 })
                  
-            })   
-            
+            })          
             
         //return a 422 status code cause email already exist on my DB
         it("it should it show return 422 when the email already exist on the DB ", (done)=>{
@@ -50,15 +49,10 @@ describe("TEST API", ()=>{
                 .send(info)
                 .end((err, response)=>{
                      response.should.have.status(422);
-                     response.body.should.be.a('object')
-                    
+                     response.body.should.be.a('object')       
                 done()
                 })
-
             })
-
-
-    
     })
 
 
@@ -80,10 +74,10 @@ describe("TEST API", ()=>{
                 response.body.should.be.a('object')
                 should.exist(response.body.token)
 
-
+                //get the login token
+                const token = response.body.token
+                
                //Authorize user after verifying the token
-               const token = response.body.token
-
                chai.request(server)
                .get("/api/user/verify")
                .set({"Authorization":`Bearer ${token}`})
@@ -94,14 +88,10 @@ describe("TEST API", ()=>{
                        should.exist(response.body.email)
                        should.exist(response.body.account_number)
                        should.exist(response.body.balance)
-   
-             
                
-   
-               
-           })
+                    })
                         
-            done()
+                done()
             })
         })
 
@@ -118,29 +108,73 @@ describe("TEST API", ()=>{
                 .end((err, response)=>{
                     response.should.have.status(401)
                     should.not.exist(response.body.token)
-
-                const token = response.body.token
-
-             
-            
+    
             done()
             })
-            
-            
-
         })
     })
 
 
     
-    describe("GET | Verify user token", (done)=>{
-        it("It Should GET user token and Verify", ()=>{
-
+    // describe("PUT | Funding other Wallets", ()=>{
+    //     it("It Should send money to another user on the DB", (done)=>{
+    //         const info ={
+    //             //ID of the receiver on the DB
+    //             id: 8,
+    //             amount: 70
+    //         }
+    //         const userID =7
+    //         chai.request(server)
+    //         //it contains the sender ID as a parameter
+    //         .put("api/userTransfer/" + userID)
+    //         .send(info)
+    //         .end((err, response)=>{
+    //             response.should.have.status(200)
+    //             should.exist(response.body)
+    //         done()
+    //         })
             
+    //     })
+    // })
+    describe("PUT | Funding other Wallets", ()=>{
+        it("It Should send money to another user on the DB ", (done)=>{
+            const userID = 8
+            const info = {
+                //ID of the receiver on the DB
+                id : 7,
+                amount: 50
+            }
+            chai.request(server)
+                .put("/api/userTransfer/" + userID)
+                .send(info)
+                .end((err, response)=>{
+                     response.should.have.status(200);
+                     response.body.should.be.a('object')
+                    
+                done()
+                })
+                 
+            })          
 
-            
-        })
     })
 
+    describe("PUT | Fund User Account", ()=>{
+        it("it should POST new user to the database ", (done)=>{
+            const userID = 8
+            const info = {
+                amount: 1220
+            }
+            chai.request(server)
+                .put("/api/user/fundAcc/" + userID)
+                .send(info)
+                .end((err, response)=>{
+                     response.should.have.status(200);
+                     response.body.should.be.a('object')
+                    
+                done()
+                })
+                 
+            })          
 
+    })
 })

@@ -13,3 +13,8 @@ To test on your computer
 -Install all dependecies and run **npm install** at the root directory 
 Run the project
 Run **npm start**
+## MySQL
+All the data required to be on the database is in MySQL_format file
+## Test Case
+Run **npm test** on your terminal
+Mocha and Chai was used to run it

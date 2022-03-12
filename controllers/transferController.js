@@ -6,8 +6,9 @@ const dotenv = require('dotenv')
 
 dotenv.config()
 
-const user_transfer = (req, res)=>{
-    const userId = req.params.id;
+const user_transfer = async (req, res)=>{
+    
+    const userId = await (req.params.id);
     const receiverId = req.body.id;
     const amount = req.body.amount;
 
@@ -29,7 +30,7 @@ const user_transfer = (req, res)=>{
                     var newBal = user.balance -= amount;
                     knex('users').where('id', userId).update({balance:newBal})
                     .then(()=>{
-                        res.send(`Transaction was successful \n Your new balance is ${newBal}`)
+                        res.status(200).send(`Transaction was successful \n Your new balance is ${newBal}`)
                     })
                    
                     
