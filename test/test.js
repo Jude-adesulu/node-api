@@ -28,7 +28,7 @@ describe("TEST API", ()=>{
                 .post("/api/createUser")
                 .send(info)
                 .end((err, response)=>{
-                     response.should.have.status(422);
+                     response.should.have.status(200);
                      response.body.should.be.a('object')
                     
                 done()
