@@ -21,8 +21,7 @@ describe("TEST API", ()=>{
             const info = {
                 name: "John Doe",
                 email: "Newmail@mail.com",
-                password: "yuty",
-                balance: 20
+                password: "yuty"   
             }
             chai.request(server)
                 .post("/api/createUser")
@@ -42,7 +41,6 @@ describe("TEST API", ()=>{
                 name: "Test Name",
                 email: "Test@mail.com",
                 password: "1234",
-                balance: 20
             }
             chai.request(server)
                 .post("/api/createUser")
@@ -138,7 +136,7 @@ describe("TEST API", ()=>{
 
     //user fund account test case
     describe("PUT | Fund User Account", ()=>{
-        it("it should POST new user to the database ", (done)=>{
+        it("it should PUT new the new amount to your account", (done)=>{
             const userID = 8
             const info = {
                 amount: 1220
