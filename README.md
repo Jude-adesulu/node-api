@@ -1,10 +1,10 @@
 # node-api
 ## About
-A simple wallet **API** containing CRUD functionalities and user authenticatione
-It registers news user
-Users can send money to other users
-Fund Account
-Withdraw from account
+A simple wallet **API** containing CRUD functionalities and user authentication.
+It registers news user,
+Users can send money to other users,
+Fund Account,
+Withdraw from account.
 ## Getting Started
 The following instructions will give guildlines on how to run the API on your local machine fpr testing purposes
 ## Prerequisities
