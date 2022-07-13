@@ -3,6 +3,7 @@ const userService = require('../services/user.service');
 const {jwtManager, sendSuccess, sendErr, hashManager, throwErr} = require('../../common/utils');
 const {register, login, amountSchema} = require('../validation');
 const { v4: uuidv4 } = require('uuid');
+const serverErr = require('../../common/middlewares/ServerErr')
 
 module.exports = {
   //POST /users/sign-up
@@ -38,7 +39,7 @@ module.exports = {
 
         }catch(err){
             if(err.isJoi===true) return sendErr(res, err.details[0].message, 422)
-            return sendErr(res, err.message, 500);
+            return serverErr(err.message, res);
         }
     },
 
@@ -64,7 +65,7 @@ module.exports = {
       return sendSuccess(res, { token, user: userFound }, 'User logged in successfully', 200);
     } catch (err) {
       if (err.isJoi === true) return sendErr(res, err.details[0].message, 422);
-      return sendErr(res, err.message, 500);
+      return serverErr(err.message, res)
     }
   },
 
@@ -83,7 +84,7 @@ module.exports = {
       return sendSuccess(res, updatedUser, 'Deposit successful', 200);
     } catch (err) {
        if (err.isJoi === true) sendErr(res, err.details[0].message, 422);
-      return sendErr(res, err.message, 500);
+      return serverErr(err.message, res);
     }
   },
 
@@ -106,7 +107,7 @@ module.exports = {
       return sendSuccess(res, updatedUser, 'Withdrawal successful', 200);
     } catch (err) {
       if (err.isJoi === true) return sendErr(res, err.details[0].message, 422);
-      return sendErr(res, err.message, err.statusCode);
+      return serverErr(err.message, res);
     }
   },
 }
