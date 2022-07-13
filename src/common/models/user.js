@@ -1,6 +1,6 @@
 class User{
     constructor(data){
-        this.id == data.user.id;
+        this.id == data.id;
         this.firstname = data.firstname;
         this.lastname = data.lastname;
         this.email = data.email;

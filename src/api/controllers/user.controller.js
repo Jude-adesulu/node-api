@@ -28,12 +28,13 @@ module.exports = {
 
             //create user
             const user = await userService.createUser(req.body);
-            console.log(user.firstname)
+            // const user = req.body
+            // return user
 
             //generate token
             const token = await jwtManager().sign({email, userId: user.id});
 
-            return sendSuccess(res, {token, user}, 'User created successfully', 201);
+            return sendSuccess(res, {token, user }, 'User created successfully', 201);
 
         }catch(err){
             if(err.isJoi===true) return sendErr(res, err.details[0].message, 422)
@@ -58,8 +59,7 @@ module.exports = {
       if (!isValid) throwErr('Invalid password', 401);
 
       const token = await jwtManager().sign({ email, userId: userFound.id });
-      console.log(userFound.id)
-      delete userFound.password
+      delete userFound.password;
 
       return sendSuccess(res, { token, user: userFound }, 'User logged in successfully', 200);
     } catch (err) {
