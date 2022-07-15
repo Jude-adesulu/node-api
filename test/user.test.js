@@ -76,26 +76,26 @@ describe('TEST API ', () => {
           });
       });
 
-      it('Should return success as false and email not allowed to be empty', (done) => {
+      it('Should return success as false and email must be a valid mail', (done) => {
         chai
           .request(app)
           .post('/api/users/sign-up')
           .send({
             firstname: 'John',
             lastname: 'Doe',
-            email: '',
+            email: 'Johndoe.com',
             password: 'Johndoe@1',
           })
           .end((err, res) => {
             expect(res.status).to.be.eql(422);
             expect(res.body).to.be.an('object');
             expect(res.body.success).to.be.eql(false);
-            expect(res.body.message).to.be.eql('"email" is not allowed to be empty');
+            expect(res.body.message).to.be.eql('"email" must be a valid email');
             done();
           });
       });
 
-      it('Should return success as false when password doesnot match the pattern', (done) => {
+      it('Should return success as false when password does not match the pattern', (done) => {
         chai
           .request(app)
           .post('/api/users/sign-up')
@@ -211,7 +211,7 @@ describe('TEST API ', () => {
       });
 
 
-      it('Should return success to be true when a withdraw from account', (done) => {
+      it('Should return success to be true when a user withdraw from account', (done) => {
         db('users').insert(testWithdraw).then((id) => db('users').where({ id }).first()).then((user) => {
             chai
               .request(app)

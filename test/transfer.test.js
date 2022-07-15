@@ -29,7 +29,7 @@ const testUser = [
   ];
 
 
-  describe('POST /transactions', () => {
+  describe('TEST API', () => {
     beforeEach(async () => {
       await db('users').del();
       await db('transactions').del();
@@ -38,7 +38,8 @@ const testUser = [
         await db('users').del();
         await db('transactions').del();
       });
-
+      describe('POST /transactions', () => {
+        
         it('Should return success as true and perform a transaction', (done) => {
             db('users').insert(testUser).then(() => {
             chai
@@ -74,5 +75,6 @@ const testUser = [
                 });
             });
             done();
-  });
+        });
+     });
 });

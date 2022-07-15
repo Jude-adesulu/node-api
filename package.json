@@ -4,8 +4,11 @@
   "description": "A simple wallet **API**",
   "main": " index.js",
   "scripts": {
-    "test": "mocha --timeout 10000",
-    "start": "nodemon server.js ",
+    "test": " cross-env NODE_ENV=test mocha --recursive --timeout 50000",
+    "start": "node server.js ",
+    "start:dev": "nodemon server.js",
+    "migrate:dev": "npx knex migrate:latest --knexfile src/database/knexkile.js --env development",
+    "migrate:test": "npx knex migrate:latest --knexfile src/database/knexfile.js --env test",
     "lint": "eslint . --ext .js --fix"
   },
   "keywords": [],
@@ -25,6 +28,8 @@
   "dependencies": {
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.2",
+    "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "http": "^0.0.1-security",
