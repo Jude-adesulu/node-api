@@ -1,4 +1,4 @@
-# node-api
+# SIMPLE WALLET API
 
 ## About
 
