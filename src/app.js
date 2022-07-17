@@ -3,6 +3,7 @@ const cors = require('cors');
 const morgan = require('morgan');
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
+const swaggerDefinition = require('./common/config/swagger-config');
 const {NODE_ENV} = require('./common/config');
 const notFound = require('./common/middlewares/NotFound');
 const errHandler = require('./common/middlewares/ServerErr');
@@ -14,6 +15,16 @@ const transacRoute = require('./api/routes/transac.routes');
 
 // create express app
 const app = express();
+
+const options = {
+  swaggerDefinition,
+  // path to the API docs
+  apis: ['./src/docs/*.yaml'],
+};
+// initialize swagger-jsdoc
+const swaggerSpec = swaggerJsDoc(options);
+
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // middlewares
 app.use(express.json());
